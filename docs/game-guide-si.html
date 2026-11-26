@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="si">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sword Toss Legends – ගේම් මාර්ගෝපදේශය</title>
+<style>
+  :root { --bg: #f6f3ec; --card: #fff; --ink: #1d1b16; --dim: #6a6458; --accent: #2f5fd0; --gold: #c98a00; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.65 "Noto Sans Sinhala", "Iskoola Pota", system-ui, sans-serif; background: var(--bg); color: var(--ink); }
+  main { max-width: 960px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 30px; margin: 8px 0 4px; } h2 { margin-top: 36px; border-bottom: 3px solid var(--accent); padding-bottom: 4px; }
+  .lead { color: var(--dim); }
+  .card { background: var(--card); border-radius: 12px; padding: 16px 18px; margin: 14px 0; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; } th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #e8e2d6; vertical-align: top; }
+  th { background: #efe9dc; } .tag { color: #111; border-radius: 6px; padding: 1px 8px; font-size: 13px; }
+  .dim { color: var(--dim); font-size: 14px; } ol.stages { columns: 2; column-gap: 28px; padding-left: 18px; } ol.stages li { list-style: none; break-inside: avoid; }
+  code { background: #efe9dc; padding: 1px 5px; border-radius: 4px; font-size: 14px; }
+  .scroll { overflow-x: auto; }
+  @media (max-width: 640px) { ol.stages { columns: 1; } }
+</style>
+</head>
+<body>
+<main>
+<h1>⚔️ Sword Toss Legends</h1>
+<p class="lead">කඩුව විසි කරන ගේම් එකේ සම්පූර්ණ විස්තරය — මේ පිටුවේ වගු <code>shared/balance.js</code> එකෙන් ස්වයංක්‍රීයව හැදෙනවා (<code>node scripts/gen-guide.mjs</code>).</p>
+
+<h2>ගේම් එක මොකක්ද?</h2>
+<div class="card">
+<p><b>Training dummy</b> එකකට කඩුවෙන් කපලා <b>Power</b> එකතු කරගන්න → <b>THROW STAGE</b> එක උඩට නැගලා (stage එකේ ඕනම තැනක) <b>THROW</b> එක තදකරගෙන ඉඳලා, මීටරය රන් පාට (PERFECT) කොටසට ආවම අත අරින්න → ඔයාගේ කඩුව කැරකි කැරකි දිගු නිම්නයේ පාර දිගේ පියාඹලා ගිහින් බිමේ ඇනෙනවා. Power වැඩි වෙන්න කඩුව දුර යනවා, යන හැම මීටරයකටම <b>Wins</b> ලැබෙනවා → Wins වලින් ලොකු කඩු, enchantments, pets eggs, dummies ගන්න → max level එකට ආවම <b>Rebirth</b> කරලා තවත් ශක්තිමත් වෙන්න → Rebirth 8ක් සහ Wins 1M ක් තියෙනකොට <b>Dragonfire Peaks</b> (World 2) එකට යන්න.</p>
+<p>ප්ලේයර්ලා කවදාවත් මරෙන්නේ නැහැ — හැම වෙලාවෙම තව විසි කිරීමක් තියෙනවා.</p>
+</div>
+
+<h2>පාලනය (Controls)</h2>
+<div class="card">
+<ul>
+<li><b>PC:</b> WASD / ඊතල — ඇවිදින්න, Space — පනින්න, මවුස් එක ඇදලා කැමරාව කරකවන්න, wheel — zoom.</li>
+<li><b>Lobby එකේ click/tap කරන්න</b> — කඩුවෙන් හුළඟට කපලා Power ගන්න (dummy එකක් ළඟ ඉන්නකොට එයාම කපනවා).</li>
+<li><b>විසි කරන්න:</b> THROW STAGE එක උඩ ඕනම තැනක හිටගන්න (හිටගන්න තැන අනුව කඩුව යන පාර වෙනස් වෙනවා) → <b>THROW</b> බොත්තම / Space / E / Enter <b>තදකරගෙන ඉන්න</b> (කඩුව පිටිපස්සට අදිනවා, මීටරය පිරෙනවා) → රන් පාට කොටසේදී <b>අත අරින්න</b>.</li>
+<li><b>ෆෝන් එකේ:</b> වම් පැත්තේ joystick, jump බොත්තම, SLASH බොත්තම; THROW බොත්තම තදකරගෙන ඉඳලා අරින්න.</li>
+</ul>
+<p>මුල් ගුරු මාර්ගය (Tutorial):</p><ol><li>Click to slash with your sword and gain Power</li>
+<li>Go up on the THROW STAGE, HOLD THROW and let go at the top!</li>
+<li>Buy the Bamboo Blade at the SWORD COUNTER by the Sword Wall!</li></ol>
+</div>
+
+<h2>විසි කිරීමේ මීටරය</h2>
+<div class="card scroll"><table><tr><th>ශ්‍රේණිය</th><th>මීටරය</th><th>දුර</th><th>Wins</th></tr>
+<tr><td><b>PERFECT THROW!</b></td><td>88%+</td><td>x1.4–x1.5</td><td>x1.6</td></tr>
+<tr><td><b>GREAT THROW!</b></td><td>70%+</td><td>x1.1–x1.2</td><td>x1.25</td></tr>
+<tr><td><b>GOOD THROW</b></td><td>40%+</td><td>x0.8–x0.9</td><td>x1</td></tr>
+<tr><td><b>WEAK THROW...</b></td><td>0%+</td><td>x0.5–x0.6</td><td>x0.75</td></tr></table>
+<p class="dim">PERFECT දිගටම ගහනකොට <b>combo</b> එකක් හැදෙනවා (+10% … +50% Wins). Auto Throw pass එකෙන් ගේම් එකම විසි කරනවා (සාමාන්‍ය x1 විසි කිරීමක්).</p></div>
+
+<h2>Training Dummies (9)</h2>
+<div class="card scroll"><table><tr><th>Dummy</th><th>Power ගුණකය</th><th>අගුළු හැරෙන්නේ</th></tr>
+<tr><td><b>Straw Dummy</b></td><td>x1</td><td>නොමිලේ</td></tr>
+<tr><td><b>Wooden Dummy</b></td><td>x2</td><td>Rebirth 1</td></tr>
+<tr><td><b>Stone Golem</b></td><td>x4</td><td>Rebirth 2</td></tr>
+<tr><td><b>Iron Knight</b></td><td>x10</td><td>Rebirth 4</td></tr>
+<tr><td><b>Crystal Golem</b></td><td>x20</td><td>Rebirth 6</td></tr>
+<tr><td><b>Diamond Golem</b></td><td>x40</td><td>VERY OP! Dummy (150K Wins)</td></tr>
+<tr><td><b>Galaxy Titan</b></td><td>x100</td><td>BEST OVERALL! Dummy (2.5M Wins)</td></tr>
+<tr><td><b>Magma Golem</b></td><td>x115</td><td>Rebirth 10 · Dragonfire Peaks පමණයි</td></tr>
+<tr><td><b>Inferno Titan</b></td><td>x130</td><td>Rebirth 16 · Dragonfire Peaks පමණයි</td></tr></table></div>
+
+<h2>කඩු (36) — Sword Wall</h2>
+<div class="card scroll"><p class="dim">සියලුම කඩු නැගෙනහිර <b>Sword Wall</b> එකේ එල්ලලා — පේළි 3ක්, හැම කඩුවක් යටම නම් පුවරුවක් (දුර ඉඳන් කියවන්න පුළුවන්). එකින් එක පිළිවෙලට ගන්න ඕනේ: බිත්තිය ළඟ තියෙන <b>SWORD COUNTER</b> එකට නැග්ගාම ඊළඟ කඩුව ගන්න පුළුවන් (ගත්ත ගමන් අතට එනවා). හැම කඩුවකටම වෙනම හැඩයක් — ලී, උණ, ගල්, ඇටකටු, තඹ, යකඩ … රත්තරන්, ලාවා, මැණික්, galaxy, මකර, cyber, infinity. ඉහළ කඩු ලොකුයි, දිලිසෙනවා. හැම කඩුවකටම වෙනම <b>trail</b> එකක් (පාට, අංශු — කොළ, මල් පෙති, ගිනි, අකුණු, තරු…). අන්තිම කඩු 12 <b>Legend</b> කඩු — Power එකට අමතරව හැම විසි කිරීමකටම Wins +10% සිට +200% දක්වා.</p>
+<table><tr><th>#</th><th>කඩුව</th><th>එක් ලාභයකට Power</th><th>අමතර Wins</th><th>මිල (Wins)</th><th>දුර්ලභතාව</th></tr>
+<tr><td>1</td><td><b>Wooden Sword</b></td><td>+1</td><td>—</td><td>නොමිලේ</td><td><span class="tag" style="background:#b9c3cf">Common</span></td></tr>
+<tr><td>2</td><td><b>Bamboo Blade</b></td><td>+3</td><td>—</td><td>1</td><td><span class="tag" style="background:#b9c3cf">Common</span></td></tr>
+<tr><td>3</td><td><b>Stone Sword</b></td><td>+5</td><td>—</td><td>15</td><td><span class="tag" style="background:#b9c3cf">Common</span></td></tr>
+<tr><td>4</td><td><b>Bone Cleaver</b></td><td>+12</td><td>—</td><td>75</td><td><span class="tag" style="background:#4ade80">Uncommon</span></td></tr>
+<tr><td>5</td><td><b>Copper Gladius</b></td><td>+30</td><td>—</td><td>300</td><td><span class="tag" style="background:#4ade80">Uncommon</span></td></tr>
+<tr><td>6</td><td><b>Iron Longsword</b></td><td>+75</td><td>—</td><td>1.2K</td><td><span class="tag" style="background:#38bdf8">Rare</span></td></tr>
+<tr><td>7</td><td><b>Steel Claymore</b></td><td>+200</td><td>—</td><td>4.5K</td><td><span class="tag" style="background:#38bdf8">Rare</span></td></tr>
+<tr><td>8</td><td><b>Knight Broadsword</b></td><td>+500</td><td>—</td><td>16K</td><td><span class="tag" style="background:#38bdf8">Rare</span></td></tr>
+<tr><td>9</td><td><b>Pirate Cutlass</b></td><td>+1.2K</td><td>—</td><td>55K</td><td><span class="tag" style="background:#b15cff">Epic</span></td></tr>
+<tr><td>10</td><td><b>Desert Scimitar</b></td><td>+3.5K</td><td>—</td><td>180K</td><td><span class="tag" style="background:#b15cff">Epic</span></td></tr>
+<tr><td>11</td><td><b>Crescent Saber</b></td><td>+9K</td><td>—</td><td>600K</td><td><span class="tag" style="background:#b15cff">Epic</span></td></tr>
+<tr><td>12</td><td><b>Frost Brand</b></td><td>+23K</td><td>—</td><td>2M</td><td><span class="tag" style="background:#b15cff">Epic</span></td></tr>
+<tr><td>13</td><td><b>Royal Greatsword</b></td><td>+60K</td><td>—</td><td>6M</td><td><span class="tag" style="background:#ffc41f">Legendary</span></td></tr>
+<tr><td>14</td><td><b>Magma Blade</b></td><td>+155K</td><td>—</td><td>17M</td><td><span class="tag" style="background:#ffc41f">Legendary</span></td></tr>
+<tr><td>15</td><td><b>Thunder Edge</b></td><td>+400K</td><td>—</td><td>48M</td><td><span class="tag" style="background:#ffc41f">Legendary</span></td></tr>
+<tr><td>16</td><td><b>Emerald Fang</b></td><td>+1M</td><td>—</td><td>135M</td><td><span class="tag" style="background:#ffc41f">Legendary</span></td></tr>
+<tr><td>17</td><td><b>Ruby Flamberge</b></td><td>+2.7M</td><td>—</td><td>380M</td><td><span class="tag" style="background:#ff3b6b">Mythic</span></td></tr>
+<tr><td>18</td><td><b>Diamond Greatblade</b></td><td>+7M</td><td>—</td><td>1B</td><td><span class="tag" style="background:#ff3b6b">Mythic</span></td></tr>
+<tr><td>19</td><td><b>Prism Blade</b></td><td>+18M</td><td>—</td><td>3B</td><td><span class="tag" style="background:#ff3b6b">Mythic</span></td></tr>
+<tr><td>20</td><td><b>Unicorn Spiral</b></td><td>+48M</td><td>—</td><td>8.5B</td><td><span class="tag" style="background:#ff3b6b">Mythic</span></td></tr>
+<tr><td>21</td><td><b>Galaxy Saber</b></td><td>+125M</td><td>—</td><td>24B</td><td><span class="tag" style="background:#ff5bd8">Secret</span></td></tr>
+<tr><td>22</td><td><b>Dragon Slayer</b></td><td>+330M</td><td>—</td><td>68B</td><td><span class="tag" style="background:#ff5bd8">Secret</span></td></tr>
+<tr><td>23</td><td><b>Cyber Blade</b></td><td>+860M</td><td>—</td><td>190B</td><td><span class="tag" style="background:#ff5bd8">Secret</span></td></tr>
+<tr><td>24</td><td><b>Infinity Blade</b></td><td>+2.2B</td><td>—</td><td>540B</td><td><span class="tag" style="background:#ff5bd8">Secret</span></td></tr>
+<tr><td>25</td><td><b>Soul Reaper</b></td><td>+5.7B</td><td>+10%</td><td>1.5T</td><td><span class="tag" style="background:#7dfcff">Divine</span></td></tr>
+<tr><td>26</td><td><b>Twin Moon Blade</b></td><td>+15B</td><td>+20%</td><td>4.4T</td><td><span class="tag" style="background:#7dfcff">Divine</span></td></tr>
+<tr><td>27</td><td><b>Titan Axe-Sword</b></td><td>+39B</td><td>+30%</td><td>12T</td><td><span class="tag" style="background:#7dfcff">Divine</span></td></tr>
+<tr><td>28</td><td><b>Sawtooth Ripper</b></td><td>+100B</td><td>+40%</td><td>36T</td><td><span class="tag" style="background:#7dfcff">Divine</span></td></tr>
+<tr><td>29</td><td><b>Phoenix Wing</b></td><td>+260B</td><td>+50%</td><td>100T</td><td><span class="tag" style="background:#7dfcff">Divine</span></td></tr>
+<tr><td>30</td><td><b>Abyssal Trident Blade</b></td><td>+680B</td><td>+65%</td><td>290T</td><td><span class="tag" style="background:#7dfcff">Divine</span></td></tr>
+<tr><td>31</td><td><b>Blossom Dancer</b></td><td>+1.7T</td><td>+80%</td><td>830T</td><td><span class="tag" style="background:#7dfcff">Divine</span></td></tr>
+<tr><td>32</td><td><b>Celestial Halo Blade</b></td><td>+4.6T</td><td>+100%</td><td>2.4Qa</td><td><span class="tag" style="background:#7dfcff">Divine</span></td></tr>
+<tr><td>33</td><td><b>Void Rift Edge</b></td><td>+12T</td><td>+120%</td><td>6.8Qa</td><td><span class="tag" style="background:#7dfcff">Divine</span></td></tr>
+<tr><td>34</td><td><b>Aurora Crystal Blade</b></td><td>+31T</td><td>+140%</td><td>19Qa</td><td><span class="tag" style="background:#7dfcff">Divine</span></td></tr>
+<tr><td>35</td><td><b>Tempest Greatblade</b></td><td>+80T</td><td>+170%</td><td>55Qa</td><td><span class="tag" style="background:#7dfcff">Divine</span></td></tr>
+<tr><td>36</td><td><b>Eternity Godblade</b></td><td>+210T</td><td>+200%</td><td>160Qa</td><td><span class="tag" style="background:#7dfcff">Divine</span></td></tr></table></div>
+
+<h2>Enchantments (12) — Enchant Altar</h2>
+<div class="card scroll"><p class="dim">කඩුවට aura එකක් — වැඩි දුරක්, වැඩි Wins, ලස්සන trail එකක් (ගිනි, අයිස්, අකුණු, තරු…).</p>
+<table><tr><th>Enchant</th><th>දුර</th><th>Wins</th><th>මිල</th><th>දුර්ලභතාව</th></tr>
+<tr><td><b>No Enchant</b></td><td>+0%</td><td>x1</td><td>නොමිලේ</td><td><span class="tag" style="background:#b9c3cf">Common</span></td></tr>
+<tr><td><b>Keen Edge</b></td><td>+4%</td><td>x1.1</td><td>40</td><td><span class="tag" style="background:#b9c3cf">Common</span></td></tr>
+<tr><td><b>Swift Wind</b></td><td>+8%</td><td>x1.2</td><td>900</td><td><span class="tag" style="background:#4ade80">Uncommon</span></td></tr>
+<tr><td><b>Flame Aura</b></td><td>+12%</td><td>x1.35</td><td>12K</td><td><span class="tag" style="background:#38bdf8">Rare</span></td></tr>
+<tr><td><b>Frost Aura</b></td><td>+16%</td><td>x1.5</td><td>150K</td><td><span class="tag" style="background:#38bdf8">Rare</span></td></tr>
+<tr><td><b>Storm Aura</b></td><td>+20%</td><td>x1.65</td><td>2M</td><td><span class="tag" style="background:#b15cff">Epic</span></td></tr>
+<tr><td><b>Golden Aura</b></td><td>+25%</td><td>x1.8</td><td>25M</td><td><span class="tag" style="background:#b15cff">Epic</span></td></tr>
+<tr><td><b>Meteor Aura</b></td><td>+30%</td><td>x1.95</td><td>300M</td><td><span class="tag" style="background:#ffc41f">Legendary</span></td></tr>
+<tr><td><b>Plasma Aura</b></td><td>+35%</td><td>x2.1</td><td>4B</td><td><span class="tag" style="background:#ffc41f">Legendary</span></td></tr>
+<tr><td><b>Rainbow Aura</b></td><td>+40%</td><td>x2.25</td><td>50B</td><td><span class="tag" style="background:#ff3b6b">Mythic</span></td></tr>
+<tr><td><b>Galaxy Aura</b></td><td>+45%</td><td>x2.4</td><td>600B</td><td><span class="tag" style="background:#ff3b6b">Mythic</span></td></tr>
+<tr><td><b>Void Aura</b></td><td>+50%</td><td>x2.6</td><td>8T</td><td><span class="tag" style="background:#ff5bd8">Secret</span></td></tr></table></div>
+
+<h2>Pets සහ Eggs</h2>
+<div class="card scroll"><table><tr><th>Egg</th><th>මිල (Wins)</th><th>Pets (ගුණකය, අවස්ථාව)</th></tr>
+<tr><td><b>Basic Egg</b></td><td>15</td><td>Cat (x1.1, 45%), Dog (x1.15, 30%), Bunny (x1.25, 20%), Bear (x1.5, 5%)</td></tr>
+<tr><td><b>Grass Egg</b></td><td>120</td><td>Cow (x1.4, 45%), Parrot (x1.7, 30%), Fox (x2.2, 20%), Tiger (x3, 5%)</td></tr>
+<tr><td><b>Sunset Egg</b></td><td>750</td><td>Flamingo (x2.5, 45%), Turtle (x3.2, 30%), Owl (x4.5, 20%), Phoenix (x7, 5%)</td></tr>
+<tr><td><b>Unicorn Egg</b></td><td>6K</td><td>Pony (x5, 50%), Unicorn (x8, 35%), Pegasus (x13, 15%)</td></tr>
+<tr><td><b>Volcano Egg</b></td><td>35K</td><td>Salamander (x10, 50%), Fire Bird (x16, 30%), Magma Golem (x26, 15%), Inferno Wolf (x45, 5%)</td></tr>
+<tr><td><b>Lava Egg</b></td><td>2M</td><td>Fire Hawk (x16, 45%), Magma Dolphin (x22, 30%), Lava Shark (x32, 20%), Inferno Kraken (x55, 5%) · Dragonfire Peaks පමණයි</td></tr></table><p class="dim">එකවර pets 3ක් equip කරන්න පුළුවන් — ගුණක එකතු වෙනවා.</p></div>
+
+<h2>ලෝක සහ අදියර (Stages)</h2>
+<div class="card">
+<p><b>Sunblade Valley</b> (World 1) — අදියර <b>80</b>ක්, පාර දිගට 25,918 m+ . අදියර 60න් පස්සේ තියෙන 20 Rebirth 30+ ප්ලේයර්ලාට දිගු ඉලක්ක.</p>
+<ol class="stages"><li><b>1. Sunny Meadow</b> <span class="dim">0 m · grassy</span></li>
+<li><b>2. Maple Trail</b> <span class="dim">100 m · autumn · පළමු වරට +5 Wins</span></li>
+<li><b>3. Sandstone Pass</b> <span class="dim">200 m · desert · පළමු වරට +7 Wins</span></li>
+<li><b>4. Seashell Coast</b> <span class="dim">306 m · beach · පළමු වරට +9 Wins</span></li>
+<li><b>5. Vine Jungle</b> <span class="dim">418 m · jungle · පළමු වරට +13 Wins</span></li>
+<li><b>6. Frostbite Tundra</b> <span class="dim">536 m · frozen · පළමු වරට +18 Wins</span></li>
+<li><b>7. Blossom Grove</b> <span class="dim">660 m · cherry · පළමු වරට +24 Wins</span></li>
+<li><b>8. Candy Hills</b> <span class="dim">790 m · candy · පළමු වරට +34 Wins</span></li>
+<li><b>9. Toadstool Woods</b> <span class="dim">926 m · mushroom · පළමු වරට +47 Wins</span></li>
+<li><b>10. Ember Volcano</b> <span class="dim">1,068 m · volcano · පළමු වරට +65 Wins</span></li>
+<li><b>11. Murky Swamp</b> <span class="dim">1,216 m · swamp · පළමු වරට +90 Wins</span></li>
+<li><b>12. Crystal Caverns</b> <span class="dim">1,370 m · crystal · පළමු වරට +130 Wins</span></li>
+<li><b>13. Coral Reef</b> <span class="dim">1,530 m · ocean · පළමු වරට +180 Wins</span></li>
+<li><b>14. Neon Bazaar</b> <span class="dim">1,696 m · neon · පළමු වරට +250 Wins</span></li>
+<li><b>15. Cloud Kingdom</b> <span class="dim">1,868 m · sky · පළමු වරට +350 Wins</span></li>
+<li><b>16. Rainbow Falls</b> <span class="dim">2,046 m · rainbow · පළමු වරට +490 Wins</span></li>
+<li><b>17. Moonstone Craters</b> <span class="dim">2,230 m · moon · පළමු වරට +690 Wins</span></li>
+<li><b>18. Aurora Peaks</b> <span class="dim">2,420 m · aurora · පළමු වරට +970 Wins</span></li>
+<li><b>19. Starfall Orbit</b> <span class="dim">2,616 m · space · පළමු වරට +1.4K Wins</span></li>
+<li><b>20. Cosmic Gate</b> <span class="dim">2,818 m · cosmic · පළමු වරට +1.9K Wins</span></li>
+<li><b>21. Emerald Plains</b> <span class="dim">3,026 m · grassy · පළමු වරට +2.8K Wins</span></li>
+<li><b>22. Harvest Woods</b> <span class="dim">3,240 m · autumn · පළමු වරට +3.9K Wins</span></li>
+<li><b>23. Dune Sea</b> <span class="dim">3,460 m · desert · පළමු වරට +5.6K Wins</span></li>
+<li><b>24. Palm Island</b> <span class="dim">3,686 m · beach · පළමු වරට +8K Wins</span></li>
+<li><b>25. Lost Temple</b> <span class="dim">3,918 m · jungle · පළමු වරට +12K Wins</span></li>
+<li><b>26. Glacier Pass</b> <span class="dim">4,156 m · frozen · පළමු වරට +17K Wins</span></li>
+<li><b>27. Petal Gardens</b> <span class="dim">4,400 m · cherry · පළමු වරට +24K Wins</span></li>
+<li><b>28. Gumdrop Valley</b> <span class="dim">4,650 m · candy · පළමු වරට +34K Wins</span></li>
+<li><b>29. Fungi Forest</b> <span class="dim">4,906 m · mushroom · පළමු වරට +50K Wins</span></li>
+<li><b>30. Magma Core</b> <span class="dim">5,168 m · volcano · පළමු වරට +72K Wins</span></li>
+<li><b>31. Bog of Echoes</b> <span class="dim">5,436 m · swamp · පළමු වරට +100K Wins</span></li>
+<li><b>32. Gem Mines</b> <span class="dim">5,710 m · crystal · පළමු වරට +150K Wins</span></li>
+<li><b>33. Sunken Ruins</b> <span class="dim">5,990 m · ocean · පළමු වරට +220K Wins</span></li>
+<li><b>34. Cyber City</b> <span class="dim">6,276 m · neon · පළමු වරට +320K Wins</span></li>
+<li><b>35. Sky Citadel</b> <span class="dim">6,568 m · sky · පළමු වරට +470K Wins</span></li>
+<li><b>36. Prism Path</b> <span class="dim">6,866 m · rainbow · පළමු වරට +690K Wins</span></li>
+<li><b>37. Lunar Valley</b> <span class="dim">7,170 m · moon · පළමු වරට +1M Wins</span></li>
+<li><b>38. Northern Lights</b> <span class="dim">7,480 m · aurora · පළමු වරට +1.5M Wins</span></li>
+<li><b>39. Galaxy Rift</b> <span class="dim">7,796 m · space · පළමු වරට +2.2M Wins</span></li>
+<li><b>40. Infinity Gate</b> <span class="dim">8,118 m · cosmic · පළමු වරට +3.2M Wins</span></li>
+<li><b>41. Sunflower Fields</b> <span class="dim">8,446 m · grassy · පළමු වරට +4.8M Wins</span></li>
+<li><b>42. Amber Forest</b> <span class="dim">8,780 m · autumn · පළමු වරට +7.1M Wins</span></li>
+<li><b>43. Golden Oasis</b> <span class="dim">9,120 m · desert · පළමු වරට +10M Wins</span></li>
+<li><b>44. Blue Lagoon</b> <span class="dim">9,466 m · beach · පළමු වරට +16M Wins</span></li>
+<li><b>45. Treetop Canopy</b> <span class="dim">9,818 m · jungle · පළමු වරට +23M Wins</span></li>
+<li><b>46. Yeti Mountain</b> <span class="dim">10,176 m · frozen · පළමු වරට +35M Wins</span></li>
+<li><b>47. Lantern Garden</b> <span class="dim">10,540 m · cherry · පළමු වරට +52M Wins</span></li>
+<li><b>48. Cupcake Kingdom</b> <span class="dim">10,910 m · candy · පළමු වරට +78M Wins</span></li>
+<li><b>49. Glowcap Grotto</b> <span class="dim">11,286 m · mushroom · පළමු වරට +120M Wins</span></li>
+<li><b>50. Inferno Peak</b> <span class="dim">11,668 m · volcano · පළමු වරට +180M Wins</span></li>
+<li><b>51. Firefly Bayou</b> <span class="dim">12,056 m · swamp · පළමු වරට +270M Wins</span></li>
+<li><b>52. Geode Valley</b> <span class="dim">12,450 m · crystal · පළමු වරට +400M Wins</span></li>
+<li><b>53. Atlantis</b> <span class="dim">12,850 m · ocean · පළමු වරට +610M Wins</span></li>
+<li><b>54. Arcade Avenue</b> <span class="dim">13,256 m · neon · පළමු වරට +920M Wins</span></li>
+<li><b>55. Floating Isles</b> <span class="dim">13,668 m · sky · පළමු වරට +1.4B Wins</span></li>
+<li><b>56. Unicorn Trail</b> <span class="dim">14,086 m · rainbow · පළමු වරට +2.1B Wins</span></li>
+<li><b>57. Red Planet</b> <span class="dim">14,510 m · moon · පළමු වරට +3.2B Wins</span></li>
+<li><b>58. Comet Ice</b> <span class="dim">14,940 m · aurora · පළමු වරට +4.9B Wins</span></li>
+<li><b>59. Nebula</b> <span class="dim">15,376 m · space · පළමු වරට +7.5B Wins</span></li>
+<li><b>60. Star Forge</b> <span class="dim">15,818 m · cosmic · පළමු වරට +12B Wins</span></li>
+<li><b>61. Hero Meadow</b> <span class="dim">16,266 m · grassy · පළමු වරට +18B Wins</span></li>
+<li><b>62. Crimson Woods</b> <span class="dim">16,720 m · autumn · පළමු වරට +27B Wins</span></li>
+<li><b>63. Pharaoh Sands</b> <span class="dim">17,180 m · desert · පළමු වරට +42B Wins</span></li>
+<li><b>64. Pirate Cove</b> <span class="dim">17,646 m · beach · පළමු වරට +65B Wins</span></li>
+<li><b>65. Wyvern Jungle</b> <span class="dim">18,118 m · jungle · පළමු වරට +100B Wins</span></li>
+<li><b>66. Frost Giant Hold</b> <span class="dim">18,596 m · frozen · පළමු වරට +150B Wins</span></li>
+<li><b>67. Spirit Blossoms</b> <span class="dim">19,080 m · cherry · පළමු වරට +240B Wins</span></li>
+<li><b>68. Sugar Castle</b> <span class="dim">19,570 m · candy · පළමු වරට +370B Wins</span></li>
+<li><b>69. Mystic Spores</b> <span class="dim">20,066 m · mushroom · පළමු වරට +580B Wins</span></li>
+<li><b>70. Phoenix Caldera</b> <span class="dim">20,568 m · volcano · පළමු වරට +900B Wins</span></li>
+<li><b>71. Witch Marsh</b> <span class="dim">21,076 m · swamp · පළමු වරට +1.4T Wins</span></li>
+<li><b>72. Diamond Spire</b> <span class="dim">21,590 m · crystal · පළමු වරට +2.2T Wins</span></li>
+<li><b>73. Leviathan Deep</b> <span class="dim">22,110 m · ocean · පළමු වරට +3.5T Wins</span></li>
+<li><b>74. Hyper Grid</b> <span class="dim">22,636 m · neon · පළමු වරට +5.4T Wins</span></li>
+<li><b>75. Sky Bridge</b> <span class="dim">23,168 m · sky · පළමු වරට +8.5T Wins</span></li>
+<li><b>76. Spectrum Realm</b> <span class="dim">23,706 m · rainbow · පළමු වරට +13T Wins</span></li>
+<li><b>77. Eclipse Basin</b> <span class="dim">24,250 m · moon · පළමු වරට +21T Wins</span></li>
+<li><b>78. Celestial Veil</b> <span class="dim">24,800 m · aurora · පළමු වරට +33T Wins</span></li>
+<li><b>79. Black Hole Edge</b> <span class="dim">25,356 m · space · පළමු වරට +53T Wins</span></li>
+<li><b>80. Legend Summit</b> <span class="dim">25,918 m · cosmic · පළමු වරට +84T Wins</span></li></ol>
+<p><b>Dragonfire Peaks</b> (World 2) — x3 Wins, අදියර 80ක්, තමන්ගේම Lava Egg, fiery dummies 2ක් සහ සැඟවුණු <b>Secret Star</b> එකක් (හම්බවුණොත් Power x2 සදහටම).</p>
+<ol class="stages"><li><b>1. Ember Gate</b> <span class="dim">0 m · volcano</span></li>
+<li><b>2. Ash Field</b> <span class="dim">100 m · desert · පළමු වරට +15 Wins</span></li>
+<li><b>3. Magma Meadow</b> <span class="dim">200 m · volcano · පළමු වරට +21 Wins</span></li>
+<li><b>4. Cinder Park</b> <span class="dim">306 m · moon · පළමු වරට +27 Wins</span></li>
+<li><b>5. Smoke Stacks</b> <span class="dim">418 m · swamp · පළමු වරට +39 Wins</span></li>
+<li><b>6. Lava Falls</b> <span class="dim">536 m · volcano · පළමු වරට +54 Wins</span></li>
+<li><b>7. Obsidian Yard</b> <span class="dim">660 m · crystal · පළමු වරට +72 Wins</span></li>
+<li><b>8. Scorch Desert</b> <span class="dim">790 m · desert · පළමු වරට +102 Wins</span></li>
+<li><b>9. Fire Pit</b> <span class="dim">926 m · volcano · පළමු වරට +141 Wins</span></li>
+<li><b>10. Basalt Bluffs</b> <span class="dim">1,068 m · moon · පළමු වරට +195 Wins</span></li>
+<li><b>11. Sulfur Springs</b> <span class="dim">1,216 m · swamp · පළමු වරට +270 Wins</span></li>
+<li><b>12. Dragon Nest</b> <span class="dim">1,370 m · volcano · පළමු වරට +390 Wins</span></li>
+<li><b>13. Ruby Caverns</b> <span class="dim">1,530 m · crystal · පළමු වරට +540 Wins</span></li>
+<li><b>14. Neon Forge</b> <span class="dim">1,696 m · neon · පළමු වරට +750 Wins</span></li>
+<li><b>15. Heat Wave</b> <span class="dim">1,868 m · desert · පළමු වරට +1K Wins</span></li>
+<li><b>16. Phoenix Peak</b> <span class="dim">2,046 m · volcano · පළමු වරට +1.4K Wins</span></li>
+<li><b>17. Ember Moon</b> <span class="dim">2,230 m · moon · පළමු වරට +2K Wins</span></li>
+<li><b>18. Burning Sky</b> <span class="dim">2,420 m · aurora · පළමු වරට +2.9K Wins</span></li>
+<li><b>19. Meteor Crater</b> <span class="dim">2,616 m · space · පළමු වරට +4.2K Wins</span></li>
+<li><b>20. Solar Flare</b> <span class="dim">2,818 m · cosmic · පළමු වරට +5.7K Wins</span></li>
+<li><b>21. Charcoal Hills</b> <span class="dim">3,026 m · moon · පළමු වරට +8.4K Wins</span></li>
+<li><b>22. Molten River</b> <span class="dim">3,240 m · volcano · පළමු වරට +11K Wins</span></li>
+<li><b>23. Cactus Inferno</b> <span class="dim">3,460 m · desert · පළමු වරට +16K Wins</span></li>
+<li><b>24. Geyser Flats</b> <span class="dim">3,686 m · swamp · පළමු වරට +24K Wins</span></li>
+<li><b>25. Flame Temple</b> <span class="dim">3,918 m · volcano · පළමු වරට +36K Wins</span></li>
+<li><b>26. Crystal Core</b> <span class="dim">4,156 m · crystal · පළමු වරට +51K Wins</span></li>
+<li><b>27. Blaze City</b> <span class="dim">4,400 m · neon · පළමු වරට +72K Wins</span></li>
+<li><b>28. Firefly Marsh</b> <span class="dim">4,650 m · swamp · පළමු වරට +102K Wins</span></li>
+<li><b>29. Ashen Peaks</b> <span class="dim">4,906 m · moon · පළමු වරට +150K Wins</span></li>
+<li><b>30. Magma Chamber</b> <span class="dim">5,168 m · volcano · පළමු වරට +216K Wins</span></li>
+<li><b>31. Dunes of Fire</b> <span class="dim">5,436 m · desert · පළමු වරට +300K Wins</span></li>
+<li><b>32. Garnet Mines</b> <span class="dim">5,710 m · crystal · පළමු වරට +450K Wins</span></li>
+<li><b>33. Hot Springs</b> <span class="dim">5,990 m · swamp · පළමු වරට +660K Wins</span></li>
+<li><b>34. Cyber Furnace</b> <span class="dim">6,276 m · neon · පළමු වරට +960K Wins</span></li>
+<li><b>35. Sky Embers</b> <span class="dim">6,568 m · aurora · පළමු වරට +1.4M Wins</span></li>
+<li><b>36. Red Giant</b> <span class="dim">6,866 m · space · පළමු වරට +2M Wins</span></li>
+<li><b>37. Lava Lagoon</b> <span class="dim">7,170 m · volcano · පළමු වරට +3M Wins</span></li>
+<li><b>38. Scorched Moon</b> <span class="dim">7,480 m · moon · පළමු වරට +4.5M Wins</span></li>
+<li><b>39. Star Furnace</b> <span class="dim">7,796 m · cosmic · පළමු වරට +6.6M Wins</span></li>
+<li><b>40. Inferno Gate</b> <span class="dim">8,118 m · volcano · පළමු වරට +9.6M Wins</span></li>
+<li><b>41. Sunfire Sands</b> <span class="dim">8,446 m · desert · පළමු වරට +14M Wins</span></li>
+<li><b>42. Amber Grotto</b> <span class="dim">8,780 m · crystal · පළමු වරට +21M Wins</span></li>
+<li><b>43. Boiling Bog</b> <span class="dim">9,120 m · swamp · පළමු වරට +30M Wins</span></li>
+<li><b>44. Volcano Arena</b> <span class="dim">9,466 m · volcano · පළමු වරට +48M Wins</span></li>
+<li><b>45. Neon Lava</b> <span class="dim">9,818 m · neon · පළමු වරට +69M Wins</span></li>
+<li><b>46. Ember Aurora</b> <span class="dim">10,176 m · aurora · පළමු වරට +105M Wins</span></li>
+<li><b>47. Black Rock</b> <span class="dim">10,540 m · moon · පළමු වරට +156M Wins</span></li>
+<li><b>48. Firestorm</b> <span class="dim">10,910 m · volcano · පළමු වරට +234M Wins</span></li>
+<li><b>49. Mirage</b> <span class="dim">11,286 m · desert · පළමු වරට +360M Wins</span></li>
+<li><b>50. Topaz Tunnels</b> <span class="dim">11,668 m · crystal · පළමු වරට +540M Wins</span></li>
+<li><b>51. Plasma Plant</b> <span class="dim">12,056 m · neon · පළමු වරට +810M Wins</span></li>
+<li><b>52. Comet Fire</b> <span class="dim">12,450 m · space · පළමු වරට +1.2B Wins</span></li>
+<li><b>53. Dragon Throne</b> <span class="dim">12,850 m · volcano · පළමු වරට +1.8B Wins</span></li>
+<li><b>54. Supernova</b> <span class="dim">13,256 m · cosmic · පළමු වරට +2.7B Wins</span></li>
+<li><b>55. Lava Champions</b> <span class="dim">13,668 m · volcano · පළමු වරට +4.2B Wins</span></li>
+<li><b>56. Ember Galaxy</b> <span class="dim">14,086 m · space · පළමු වරට +6.3B Wins</span></li>
+<li><b>57. Sun Core</b> <span class="dim">14,510 m · cosmic · පළමු වරට +9.6B Wins</span></li>
+<li><b>58. Fire Dimension</b> <span class="dim">14,940 m · aurora · පළමු වරට +14B Wins</span></li>
+<li><b>59. Eternal Flame</b> <span class="dim">15,376 m · volcano · පළමු වරට +22B Wins</span></li>
+<li><b>60. Hall of Legends</b> <span class="dim">15,818 m · cosmic · පළමු වරට +36B Wins</span></li>
+<li><b>61. Cinder Crown</b> <span class="dim">16,266 m · volcano · පළමු වරට +54B Wins</span></li>
+<li><b>62. Smoldering Dunes</b> <span class="dim">16,720 m · desert · පළමු වරට +81B Wins</span></li>
+<li><b>63. Obsidian Throne</b> <span class="dim">17,180 m · crystal · පළමු වරට +126B Wins</span></li>
+<li><b>64. Ashfall Moor</b> <span class="dim">17,646 m · swamp · පළමු වරට +195B Wins</span></li>
+<li><b>65. Wyrm Lair</b> <span class="dim">18,118 m · volcano · පළමු වරට +300B Wins</span></li>
+<li><b>66. Forge City</b> <span class="dim">18,596 m · neon · පළමු වරට +450B Wins</span></li>
+<li><b>67. Crater of Ash</b> <span class="dim">19,080 m · moon · පළමු වරට +720B Wins</span></li>
+<li><b>68. Flare Veil</b> <span class="dim">19,570 m · aurora · පළමු වරට +1.1T Wins</span></li>
+<li><b>69. Ruby Nebula</b> <span class="dim">20,066 m · space · පළමු වරට +1.7T Wins</span></li>
+<li><b>70. Ember Cosmos</b> <span class="dim">20,568 m · cosmic · පළමු වරට +2.7T Wins</span></li>
+<li><b>71. Titan Forge</b> <span class="dim">21,076 m · volcano · පළමු වරට +4.2T Wins</span></li>
+<li><b>72. Blazing Mesa</b> <span class="dim">21,590 m · desert · පළමු වරට +6.6T Wins</span></li>
+<li><b>73. Magma Geodes</b> <span class="dim">22,110 m · crystal · පළමු වරට +10T Wins</span></li>
+<li><b>74. Steam Vents</b> <span class="dim">22,636 m · swamp · පළමු වරට +16T Wins</span></li>
+<li><b>75. Fireheart Gorge</b> <span class="dim">23,168 m · volcano · පළමු වරට +25T Wins</span></li>
+<li><b>76. Plasma Spire</b> <span class="dim">23,706 m · neon · පළමු වරට +39T Wins</span></li>
+<li><b>77. Brimstone Plateau</b> <span class="dim">24,250 m · moon · පළමු වරට +63T Wins</span></li>
+<li><b>78. Solar Wind</b> <span class="dim">24,800 m · aurora · පළමු වරට +99T Wins</span></li>
+<li><b>79. Dying Star</b> <span class="dim">25,356 m · space · පළමු වරට +159T Wins</span></li>
+<li><b>80. Dragonfire Summit</b> <span class="dim">25,918 m · cosmic · පළමු වරට +252T Wins</span></li></ol>
+</div>
+
+<h2>කම්මැලි නොවෙන්න තියෙන දේවල්</h2>
+<div class="card"><ul>
+<li><b>Daily quests 3ක්</b> (EASY / MEDIUM / HARD) සහ bonus chest එකක් — හැමදාම අලුත්.</li>
+<li><b>Login streak</b> — දිගටම දවස් ගාණක් සෙල්ලම් කළොත් Wins x2 දක්වා.</li>
+<li><b>Daily rewards</b> (දවස් 7), <b>playtime gifts</b>, lobby එකේ <b>free reward</b>.</li>
+<li><b>Lucky gifts</b> — විසි කිරීම් වලින් 8%ක අවස්ථාවක් පුදුම තෑග්ගකට.</li>
+<li><b>අලුත් අදියරකට</b> පළමු වරට යනකොට Wins ත්‍යාගයක්; <b>PERFECT combo</b>; යාළුවෝ server එකේ ඉන්නකොට <b>friends bonus</b> (+30% දක්වා).</li>
+<li><b>Rebirth gifts</b> (Rebirth 15 සිට සෑම 5කටම eggs), badges, leaderboards 4ක් (Rebirths, Total Wins, Longest Throw, Minutes Played).</li>
+</ul></div>
+
+<h2>Developer සටහන් — කොහෙද මොනවද</h2>
+<div class="card"><ul>
+<li><code>shared/balance.js</code> — හැම අංකයක්ම (කඩු, dummies, enchants, stages, මිල). <code>scripts/gen-stages.py</code> stage වගුව හදනවා, <code>node scripts/balance-sim.mjs</code> වේගය පරීක්ෂා කරනවා.</li>
+<li><code>client/src/game/swords.js</code> — කඩු 24ේ හැඩ සහ shader එක. <code>enchants.js</code> — aura පාට.</li>
+<li><code>client/src/game/launch.js</code> — THROW තදකරලා අරින logic එක. <code>playerPose.js</code> — කපන / විසි කරන animations.</li>
+<li><code>client/src/game/roll/path.js</code> — කඩුවේ පියාසැරිය, කැරකීම, බිමේ ඇනීම. <code>rollControl.js</code>, <code>Roll.jsx</code> — කැමරාව, effects. <code>Lane.jsx</code> + <code>themes.js</code> — නිම්නයේ පාර සහ අදියර පෙනුම.</li>
+<li><code>client/src/game/TrainingDummies.jsx</code> — dummies සහ කපන ආලෝක චාප. <code>client/src/game/world/</code> — lobby එක: මැද විවෘත plaza එකක් (spawn සිට THROW STAGE එකට කෙලින් මාවතක්, බාධා නැහැ), spawn ළඟ මාවත දෙපැත්තේ eggs පේළි දෙකක්, බටහිරින් training circle එක, නැගෙනහිරින් Sword Wall එක සහ Sword Counter එක, උතුරින් THROW STAGE එක. පිහිටීම් <code>shared/world.js</code>.</li>
+<li>කේතයේ ඇතුළේ template නම් තියෙනවා: <code>health</code> = Power, <code>tire</code> = කඩුව, <code>ball</code> = enchantment, <code>pad</code> = dummy, <code>roll</code> = විසි කිරීම.</li>
+</ul></div>
+</main>
+</body>
+</html>
